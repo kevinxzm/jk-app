@@ -1,7 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
 .login {
-  background: skyblue url("~assets/img/login.png") no-repeat;
-  background-size: 100% 100%;
   position: relative;
+  background: skyblue url("~assets/img/login.png") no-repeat;
+  background-size: cover;
+  
   width: 100vw;
   height: 100vh;
 
@@ -20,5 +27,13 @@
         height: 80%;
       }
     }
+
+    .ant-form-item {
+      margin-bottom: 16px;
+    }
   }
 }
+
+
+
+

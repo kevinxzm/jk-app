@@ -1,6 +1,7 @@
 import "App.scss";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
+import React from "react";
 
 import {
   Link,
@@ -9,7 +10,6 @@ import {
   Navigate,
   Routes,
 } from "react-router-dom";
-import React from "react";
 
 function App() {
   return (
@@ -25,10 +25,17 @@ function App() {
   );
 }
 
-class Normal extends React.Component {
-  render() {
-    return <div>normal</div>;
-  }
-}
-
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+

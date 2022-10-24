@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="nine">999</div>
+  </body>
+
+  <script>
+    // console.log(123);
+    // var p = new Promise((res,rej)=>{
+    //     // res('chenggong');
+    //     rej(new Error('fail'))
+    // });
+
+    // p.then((a)=>{
+    //     console.log(a);
+
+    // },(b)=>{console.log(b.message);
+    // })
+
+    // var p = Promise.resolve(200);
+    // var result = p.then((res) => {
+    //   return 2;
+    // });
+
+    // console.log(result);
+
+    // var flag = true;
+    // var p1 = new Promise((resolve, reject) => {
+    //   if (flag) {
+    //     return resolve(
+    //       new Promise((resolve) => {
+    //         resolve("promise 2");
+    //       })
+    //     );
+    //   }
+    //   return reject(new Error("bad"));
+    // });
+
+    // function resolve() {
+    //    console.log('resolve');
+    // }
+
+    // function reject() {
+    //   console.log('reject');
+    // }
+
+    // p1.then(
+    //   (res) => {
+    //     console.log(res);
+    //   },
+    //   (res) => {
+    //     console.log(res.message);
+    //   }
+    // ).then();
+
+    // Promise 主要学习内容
+    // var p1 = new Promise(
+    //   (res) => {
+    //     res("good");
+    //   },
+    //   (rej) => {
+    //     rej(new Error("bad"));
+    //   }
+    // );
+    // p1.then((x) => {
+    //   console.log(x);
+    // });
+
+    // async function get() {
+    //   var x = await new Promise((res) => {
+    //     res("good");
+    //   }).then((x) => {
+    //     console.log(x);
+    //   });
+    //   console.log(x);
+    //   return 1;
+    // }
+
+    // get();
+
+    // async function get2() {
+    //   var y = await get();
+    //   console.log(y);
+    // }
+
+    // get2();
+
+    // async function getdata() {
+    //   var p1 = await axios.post("http://geek.itheima.net/v1_0/authorizations", {
+    //     mobile: "13911111111",
+    //     code: "246810",
+    //   });
+    //   console.log(p1);
+    // }
+
+    const p1 = new Promise((resolve, reject) => {
+      resolve("haha");
+    });
+
+    p1.then((x) => {
+      console.log(x+1);
+    });
+
+    const p2 = new Promise((resolve, reject) => {
+      resolve("p2");
+    });
+
+    p2.then((x) => {
+      console.log(x+1);
+    });
+
+    async function getdata() {
+      const result = await Promise.all([p1,p2]);
+      console.log(result[0]);
+    }
+    getdata();
+
+    
+
+   
+
+
+
+
+
+
+
+  </script>
+</html>
