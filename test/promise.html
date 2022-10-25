@@ -100,36 +100,37 @@
     // }
 
     const p1 = new Promise((resolve, reject) => {
-      resolve("haha");
+      resolve("haha123");
     });
 
-    p1.then((x) => {
-      console.log(x+1);
-    });
+    // p1.then((x) => {
+    //   throw new Error('haha')
+    //   console.log(x + 1);
+    // }).catch((x)=>{console.log(x.message);
+    // });
 
-    const p2 = new Promise((resolve, reject) => {
-      resolve("p2");
-    });
+    // const p2 = new Promise((resolve, reject) => {
+    //   resolve("p2");
+    // });
 
-    p2.then((x) => {
-      console.log(x+1);
-    });
+    // p2.then((x) => {
+    //   console.log(x + 1);
+    // });
 
-    async function getdata() {
-      const result = await Promise.all([p1,p2]);
-      console.log(result[0]);
+    // async function getdata() {
+    //   const result = await Promise.all([p1,p2]);
+    //   console.log(result[0]);
+    // }
+    // getdata();
+
+
+    async function getp() {
+      var result = await p1;
+      console.log(result);
+      
     }
-    getdata();
 
+    getp();
     
-
-   
-
-
-
-
-
-
-
   </script>
 </html>

@@ -4,22 +4,22 @@ import Login from "pages/Login/Login";
 import React from "react";
 
 import {
-  Link,
   BrowserRouter as Router,
   Route,
-  Navigate,
-  Routes,
+  Redirect,
+  Switch
 } from "react-router-dom";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route exact path="/" element={<Navigate to="/login" />} />
-          <Route path="/home" element={<Home></Home>}></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
-        </Routes>
+        <Switch>
+          <Redirect exact from="/" to='/login'></Redirect>
+          {/* <Route exact path="/" element={<Navigate to="/login" />} /> */}
+          <Route path="/home" component={Home}></Route>
+          <Route path="/login" component={Login} ></Route>
+        </Switch>
       </div>
     </Router>
   );
