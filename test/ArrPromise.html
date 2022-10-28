@@ -5,8 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* 1. 测试flex，float */
+      .father {
+        overflow: hidden;
+        width: 500px;
+        height: 500px;
+        background-color: pink;
+      }
+
+      .son,
+      .son1,
+      .son2 {
+        float: left;
+        width: 50px;
+        margin: 5px;
+        height: 50px;
+        background-color: skyblue;
+      }
+
+      .son1 + .son {
+        background-color: red;
+      }
+
+      /* 2. 背景图片 cover 和 contain */
+
+       .pic {
+        width: 200px;
+        height: 200px;
+        background-color: pink;
+        background: url('../src/assets/img/logo.png')  pink;
+        background-size: cover;
+       }
+
+
+
+
+
+
+
+
+    </style>
   </head>
-  <body></body>
+  <body>
+    <!-- <div class="father">
+      <div class="son"></div>
+      <div class="son1"></div>
+      <div class="son"></div>
+      <div class="son"></div>
+      <div class="son1"></div>
+      <div class="son"></div>
+    </div> -->
+
+    <div class="pic">123</div>
+  </body>
   <script>
     var arr = ["a", "b", "c"];
 
@@ -16,14 +73,9 @@
 
     console.log(arr2);
 
-
-
-    var flag = arr.includes('d');
+    var flag = arr.includes("d");
 
     console.log(flag);
-
-
-
 
     var p1 = new Promise((res) => {
       res("haha");

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+
+  <script>
+    // 问题：需要被简化的写法
+    // function shorten() {
+    //   if (x == "/home/dataOverview") {
+    //     return ["a"];
+    //   } else if (x == "/home/management") {
+    //     return ["b"];
+    //   } else if (x == "/home/publish") {
+    //     return ["c"];
+    //   }
+    // }
+
+    // 1. 第一种简化方案
+
+    var x = "/home/publish";
+    function shorten(pathuname) {
+      var data = {
+        a: "/home/dataOverview",
+        b: "/home/management",
+        c: "/home/publish",
+      };
+      const index = Object.values(data).findIndex(
+        (value) => value == pathuname
+      );
+      return Object.keys(data)[index];
+    }
+    console.log(shorten(x));
+
+    // 2. 练习ES6对象的属性名表达式
+    // var uname = "kevin";
+    // var kevin = { [uname]: "ivy" };
+    // console.log(kevin);
+
+    // 3. 我觉得的第三种
+    // var arr = ["/home/dataOverview", "/home/management", "/home/publish"];
+  </script>
+</html>
