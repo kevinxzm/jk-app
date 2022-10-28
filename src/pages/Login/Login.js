@@ -1,5 +1,5 @@
 import React from "react";
-import "pages/Login/Login.scss";
+import style from "pages/Login/Login.module.scss";
 import logo from "assets/img/logo.png";
 import { Card, Form, Checkbox, Input, Button, message } from "antd";
 import axios from "axios";
@@ -46,7 +46,7 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="login">
+      <div className={style.login}>
         <Card className="loginwindow">
           <p>
             <img src={logo} alt="logo" />
@@ -121,7 +121,15 @@ export default class Login extends React.Component {
             </Form.Item>
           </Form>
         </Card>
+  
       </div>
     );
   }
 }
+
+
+
+
+
+
+
