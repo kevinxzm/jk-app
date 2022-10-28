@@ -53,7 +53,6 @@ export default class Home extends React.Component {
     );
     return Object.keys(this.state.data)[index];
   };
-
   // 复杂写法
   // if (window.location.pathname == "/home") {
   //   return ["a"];
