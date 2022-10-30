@@ -2,25 +2,16 @@ import React from "react";
 import style from "pages/Home/Home.module.scss";
 //antd 大列表的导入
 import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
   LogoutOutlined,
   EditOutlined,
   PieChartOutlined,
   FontColorsOutlined,
 } from "@ant-design/icons";
-
 import { Switch, Route } from "react-router-dom";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Layout, Menu, Popconfirm } from "antd";
+import { removeToken, ifToken } from "utils/token";
+
 const { Header, Content, Sider } = Layout;
-
-
-const items1 = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
 const items2 = [
   {
     label: "data overview ",
@@ -40,13 +31,13 @@ const items2 = [
 ];
 
 export default class Home extends React.Component {
-  state ={
-    data:{
+  state = {
+    data: {
       a: "/home",
       b: "/home/management",
       c: "/home/publish",
     },
-  }
+  };
   getCurrentItem = () => {
     const index = Object.values(this.state.data).findIndex(
       (value) => value == window.location.pathname
@@ -61,27 +52,33 @@ export default class Home extends React.Component {
   // } else if (window.location.pathname == "/home/publish") {
   //   return ["c"];
   // }
-
   render() {
     return (
       <div className={style.home}>
         <Layout>
+          {/* 1.Header */}
           <Header className="header">
             <div className="logo"></div>
-
-            {/* <Menu
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={["2"]}
-              items={items1}
-            /> */}
-
             <span className="loginOut">
-              <LogoutOutlined /> {"\u00A0"}退出
+              <Popconfirm
+                placement="bottomRight"
+                title={"are you sure to log out?"}
+                onConfirm={() => {
+                  removeToken();
+                  this.props.history.push("/login");
+                }}
+                okText="Yes"
+                cancelText="No"
+              >
+                <LogoutOutlined /> {"\u00A0"}退出
+              </Popconfirm>
             </span>
+
             <span className="user">用户</span>
           </Header>
+          {/* 2.layout */}
           <Layout>
+            {/* 2.1 layout-sider */}
             <Sider width={200} className="site-layout-background">
               <Menu
                 theme="dark"
@@ -94,9 +91,13 @@ export default class Home extends React.Component {
                 }}
                 items={items2}
                 onClick={(x) => {
-                  const index = Object.keys(this.state.data).findIndex((val=>val==x.key));
+                  // console.log(this.props.props.history);
+
+                  const index = Object.keys(this.state.data).findIndex(
+                    (val) => val == x.key
+                  );
                   const path = Object.values(this.state.data)[index];
-                  this.props.history.push(path)
+                  this.props.history.push(path);
                   // 复杂写法
                   // if (x.key == "a") {
                   //   this.props.history.push("/home");
@@ -108,7 +109,7 @@ export default class Home extends React.Component {
                 }}
               />
             </Sider>
-            {/* 右侧主题内容 */}
+            {/* 2.2 layout-content */}
             <Layout
               style={{
                 padding: "24px",
@@ -125,7 +126,6 @@ export default class Home extends React.Component {
                 <Switch>
                   <Route exact path="/home" component={DataOverview}></Route>
                   <Route path="/home/management" component={Management}></Route>
-
                   <Route path="/home/publish" component={Publish}></Route>
                 </Switch>
               </Content>
@@ -142,14 +142,40 @@ class DataOverview extends React.Component {
     return <div>data Overview</div>;
   }
 }
+
 class Management extends React.Component {
   render() {
-    return <div>article management</div>;
+    return (
+      <div>
+        article management
+      </div>
+    );
   }
 }
 
 class Publish extends React.Component {
   render() {
-    return <div>article publish</div>;
+    return (
+      <div>
+        article publish
+      </div>
+    );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

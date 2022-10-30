@@ -34,14 +34,37 @@
       );
       return Object.keys(data)[index];
     }
-    console.log(shorten(x));
+    // console.log(shorten(x));
 
     // 2. 练习ES6对象的属性名表达式
     // var uname = "kevin";
     // var kevin = { [uname]: "ivy" };
     // console.log(kevin);
 
-    // 3. 我觉得的第三种
+    // 3. 我觉得的有可能的第三种
     // var arr = ["/home/dataOverview", "/home/management", "/home/publish"];
+
+    // 4. 测试localStorage
+    // localStorage.setItem("uname", "kevin");
+    // var uname = localStorage.getItem("uname");
+    // localStorage.removeItem("uname");
+
+    // console.log(uname);
+
+    // 5. fn()
+
+    function render(x) {
+      return "haha" + x.uname;
+    }
+    render({ uname: "reese" });
+    console.log(render({ uname: "reese" }));
+
+    // function father(fn) {
+    //   return fn({uname:'kevin'})
+    // }
+
+    // console.log(father(render));
+
+    
   </script>
 </html>
