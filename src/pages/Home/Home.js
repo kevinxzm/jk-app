@@ -7,7 +7,7 @@ import {
   PieChartOutlined,
   FontColorsOutlined,
 } from "@ant-design/icons";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route,} from "react-router-dom";
 import { Breadcrumb, Layout, Menu, Popconfirm } from "antd";
 import { removeToken, ifToken } from "utils/token";
 
@@ -148,6 +148,7 @@ class Management extends React.Component {
     return (
       <div>
         article management
+
       </div>
     );
   }
@@ -155,27 +156,8 @@ class Management extends React.Component {
 
 class Publish extends React.Component {
   render() {
-    return (
-      <div>
-        article publish
-      </div>
-    );
+
+
+    return <div>article publish</div>;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

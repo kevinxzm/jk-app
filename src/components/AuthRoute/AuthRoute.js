@@ -7,6 +7,8 @@ import { ifToken } from "utils/token";
 
 export default class AuthRoute extends React.Component {
   render() {
+    console.log(this.props);
+    
     var { component: Home, ...rest } = this.props;
     return (
       <Route
