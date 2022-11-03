@@ -1,8 +1,6 @@
-import "App.scss";
 import Home from "pages/Home/Home";
 import Login from "pages/Login/Login";
 import React from "react";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -11,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import AuthRoute from "components/AuthRoute/AuthRoute";
+
 
 function App() {
   return (

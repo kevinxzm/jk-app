@@ -7,9 +7,17 @@ import {
   PieChartOutlined,
   FontColorsOutlined,
 } from "@ant-design/icons";
-import { Switch, Route,} from "react-router-dom";
-import { Breadcrumb, Layout, Menu, Popconfirm } from "antd";
-import { removeToken, ifToken } from "utils/token";
+import { Switch, Route } from "react-router-dom";
+import { Layout, Menu, Popconfirm, Input } from "antd";
+import { removeToken } from "utils/token";
+import { getPerInfor } from "api/loginApi.js";
+
+import axios from "axios";
+
+// 三个主组件
+import { Publish } from "pages/Publish/Publish";
+import { DataOverview } from "pages/DataOverview/DataOverview";
+import { Management } from "pages/Management/management";
 
 const { Header, Content, Sider } = Layout;
 const items2 = [
@@ -37,6 +45,7 @@ export default class Home extends React.Component {
       b: "/home/management",
       c: "/home/publish",
     },
+    userName: "user",
   };
   getCurrentItem = () => {
     const index = Object.values(this.state.data).findIndex(
@@ -44,14 +53,7 @@ export default class Home extends React.Component {
     );
     return Object.keys(this.state.data)[index];
   };
-  // 复杂写法
-  // if (window.location.pathname == "/home") {
-  //   return ["a"];
-  // } else if (window.location.pathname == "/home/management") {
-  //   return ["b"];
-  // } else if (window.location.pathname == "/home/publish") {
-  //   return ["c"];
-  // }
+
   render() {
     return (
       <div className={style.home}>
@@ -70,11 +72,11 @@ export default class Home extends React.Component {
                 okText="Yes"
                 cancelText="No"
               >
-                <LogoutOutlined /> {"\u00A0"}退出
+                <LogoutOutlined /> {"\u00A0"}log out
               </Popconfirm>
             </span>
 
-            <span className="user">用户</span>
+            <span className="user">{this.state.userName}</span>
           </Header>
           {/* 2.layout */}
           <Layout>
@@ -98,29 +100,21 @@ export default class Home extends React.Component {
                   );
                   const path = Object.values(this.state.data)[index];
                   this.props.history.push(path);
-                  // 复杂写法
-                  // if (x.key == "a") {
-                  //   this.props.history.push("/home");
-                  // } else if (x.key == "b") {
-                  //   this.props.history.push("/home/management");
-                  // } else if (x.key == "c") {
-                  //   this.props.history.push("/home/publish");
-                  // }
                 }}
               />
             </Sider>
             {/* 2.2 layout-content */}
             <Layout
               style={{
-                padding: "24px",
+                padding: "0px",
               }}
             >
               <Content
                 className="site-layout-background"
                 style={{
-                  padding: 24,
+                  padding: 0,
                   margin: 0,
-                  minHeight: 280,
+                  minHeight: 420,
                 }}
               >
                 <Switch>
@@ -135,29 +129,11 @@ export default class Home extends React.Component {
       </div>
     );
   }
-}
 
-class DataOverview extends React.Component {
-  render() {
-    return <div>data Overview</div>;
-  }
-}
-
-class Management extends React.Component {
-  render() {
-    return (
-      <div>
-        article management
-
-      </div>
-    );
-  }
-}
-
-class Publish extends React.Component {
-  render() {
-
-
-    return <div>article publish</div>;
+  async componentDidMount() {
+    var x = await getPerInfor();
+    this.setState({
+      userName: x.data.mobile,
+    });
   }
 }

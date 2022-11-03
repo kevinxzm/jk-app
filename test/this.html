@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script>
+
+    // 1. this指向
+    var get = async () => {
+      var p1 = new Promise((res) => {
+        console.log(this);
+
+        res("success");
+      });
+
+      // var x = await p1;
+
+      // console.log(x);
+      // console.log("a");
+    };
+
+    get();
+
+    var kevin = {
+      uname:'kevin',
+      code: ()=> {
+        console.log(this);
+
+        console.log("code");
+      },
+    };
+
+    // 2.kevin.code();
+
+    var ivy = {
+      uname:'ivy',
+      pay: function () {
+        kevin.code();
+
+        console.log("pay");
+      },
+    };
+
+    ivy.pay();
+
+    // 2. try catch 学习
+
+    try { 
+      var kevin = 'kevin';
+      pay();
+    } catch (x) { console.log(x);
+    }
+
+
+
+
+
+  </script>
+  <body></body>
+</html>

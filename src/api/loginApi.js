@@ -1,6 +1,6 @@
 import { instance } from "utils/request";
 
-export function loginIn(mobile, code) {
+export const loginIn = (mobile, code) => {
   return instance({
     method: "post",
     url: "/authorizations",
@@ -9,4 +9,17 @@ export function loginIn(mobile, code) {
       code: code,
     },
   });
+};
+
+export const getPerInfor =() => {
+  return instance({
+    method:'get',
+    url:"/user/profile",
+  })
 }
+
+
+
+
+
+

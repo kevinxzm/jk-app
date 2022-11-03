@@ -2,6 +2,10 @@
   height: 100vh;
 
   :global {
+    * {
+      margin: 0px;
+      padding: 0px;
+    }
     .ant-layout {
       height: 100%;
 
@@ -34,8 +38,8 @@
           // color: white;
           cursor: pointer;
           color: rgba(255, 255, 255, 0.65);
-          &:hover{
-            color:white
+          &:hover {
+            color: white;
           }
         }
 
@@ -43,9 +47,6 @@
           margin-left: 20px;
         }
       }
-
-
-      
 
       .ant-row-rtl #components-layout-demo-top-side-2 .logo {
         float: right;

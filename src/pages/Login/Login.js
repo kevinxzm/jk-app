@@ -2,11 +2,12 @@ import React from "react";
 import style from "pages/Login/Login.module.scss";
 import logo from "assets/img/logo.png";
 import { Card, Form, Checkbox, Input, Button, message } from "antd";
-import axios from "axios";
-import { loginIn } from "api/loginIn.js";
+import { loginIn } from "api/loginApi.js";
 import { setToken } from "utils/token.js";
 
-// import { useNavigate } from "react-router-dom";
+import { createBrowserHistory } from "history";
+
+var history = createBrowserHistory();
 
 export default class Login extends React.Component {
   constructor() {
@@ -22,23 +23,25 @@ export default class Login extends React.Component {
     // 2.2 发送数据
     try {
       var token = await loginIn(e.mobile, e.code);
-
       setToken(token.data.token);
 
-      this.props.history.push("/home");
+      // 2.2.1 AuthRoute使用state传过来参数
+      var flag = this.props.history.location.state;
+      if (flag) {
+        this.props.history.push(flag);
+      } else {
+        this.props.history.push("/home");
+      }
       message.success("log in successfully", 1);
     } catch (error) {
-      console.log(error);
       message.error("wrong code", 1);
       this.setState({
         btnloading: false,
       });
     }
-
-    // 2.2.1 成功
   };
 
-  // rules里面的校验规则
+  // rules里面的自定义校验规则
   ifReadValidor = (rule, value) => {
     if (value) {
       return Promise.resolve();
@@ -127,9 +130,3 @@ export default class Login extends React.Component {
     );
   }
 }
-
-
-
-
-
-
