@@ -8,7 +8,7 @@ import {
   FontColorsOutlined,
 } from "@ant-design/icons";
 import { Switch, Route } from "react-router-dom";
-import { Layout, Menu, Popconfirm, Input } from "antd";
+import { Layout, Menu, Popconfirm, Input, AutoComplete } from "antd";
 import { removeToken } from "utils/token";
 import { getPerInfor } from "api/loginApi.js";
 
@@ -81,7 +81,7 @@ export default class Home extends React.Component {
           {/* 2.layout */}
           <Layout>
             {/* 2.1 layout-sider */}
-            <Sider width={200} className="site-layout-background">
+            <Sider width={200} height={'100vh'} className="site-layout-background">
               <Menu
                 theme="dark"
                 mode="inline"
@@ -90,11 +90,10 @@ export default class Home extends React.Component {
                 style={{
                   height: "100%",
                   borderRight: 0,
+
                 }}
                 items={items2}
                 onClick={(x) => {
-                  // console.log(this.props.props.history);
-
                   const index = Object.keys(this.state.data).findIndex(
                     (val) => val == x.key
                   );
@@ -107,6 +106,8 @@ export default class Home extends React.Component {
             <Layout
               style={{
                 padding: "0px",
+                height:'100%',
+                overflow:'auto',
               }}
             >
               <Content
@@ -114,7 +115,6 @@ export default class Home extends React.Component {
                 style={{
                   padding: 0,
                   margin: 0,
-                  minHeight: 420,
                 }}
               >
                 <Switch>

@@ -1,0 +1,23 @@
+.management {
+  :global {
+    .ant-table-cell {
+      img {
+        width: 70px;
+        object-fit: cover;
+      }
+    }
+
+    .setting {
+      display: flex;
+      
+      .ant-btn {
+        border-color: transparent;
+        margin: 2px;
+        & + .ant-btn {
+          
+          background-color: red;
+        }
+      }
+    }
+  }
+}
