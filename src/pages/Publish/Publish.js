@@ -18,16 +18,23 @@ import { Channel } from "components/Channel";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { publishArt } from "api/publish";
+import { getArt } from "api/getArt";
+import { editArt } from "api/editArt";
 
 // 发布组件（总）
 export class Publish extends React.Component {
-  state = {
-    coverType: 1,
-    fileList: [],
-    previewVisible: false,
-    previewImage: "",
-  };
-  pubForm = React.createRef();
+  constructor(x) {
+    super(x);
+    this.state = {
+      coverType: 1,
+      fileList: [],
+
+      previewVisible: false,
+      previewImage: "",
+    };
+    this.pubForm = React.createRef();
+    this.id = this.props.match.params.id;
+  }
 
   // 提交表单
   onSubForm = async (x, draft) => {
@@ -43,13 +50,26 @@ export class Publish extends React.Component {
     var data = { ...x, cover: { type: x.type, images } };
 
     try {
-      var result = await publishArt(data, draft);
-      if (result) {
-        this.props.history.push("/home/management");
-        draft
-          ? message.warn("draft upload succesfully")
-          : message.success("upload succesfully");
-        return;
+      if (this.id) {
+        var result = await editArt(this.id, data, draft);
+        if (result) {
+          console.log(result);
+          
+          this.props.history.push("/home/management");
+          draft
+            ? message.warn("draft has been saved")
+            : message.success("upload succesfully");
+          return;
+        }
+      } else {
+        var result = await publishArt(data, draft);
+        if (result) {
+          this.props.history.push("/home/management");
+          draft
+            ? message.warn("draft has been saved")
+            : message.success("upload succesfully");
+          return;
+        }
       }
     } catch (err) {
       return message.error(err.message);
@@ -69,6 +89,7 @@ export class Publish extends React.Component {
   pageChange = (x) => {
     this.setState({
       coverType: x.target.value,
+
       fileList: this.state.fileList
         .map((val, index) => {
           if (index < x.target.value) {
@@ -97,7 +118,9 @@ export class Publish extends React.Component {
               <Breadcrumb.Item>
                 <Link to="/home">home</Link>
               </Breadcrumb.Item>
-              <Breadcrumb.Item>aricle publish</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                {this.id ? "article edit" : "aricle publish"}
+              </Breadcrumb.Item>
             </Breadcrumb>
           }
         >
@@ -105,7 +128,7 @@ export class Publish extends React.Component {
             labelCol={{ span: 3 }}
             wrapperCol={{ span: 8 }}
             onFinish={this.onFinish}
-            initialValues={{ title: "title first", type: 1, content: "" }}
+            // initialValues={{ title: "title first", type: 1, content: "" }}
             ref={this.pubForm}
           >
             {/* 1.title  */}
@@ -195,7 +218,7 @@ export class Publish extends React.Component {
             <Form.Item wrapperCol={{ offset: 3, span: 8 }}>
               <Space>
                 <Button type="primary" htmlType="submit">
-                  Submit
+                  {this.id ? "Edit" : "Submit"}
                 </Button>
                 <Button onClick={this.onDraft}>Save as draft</Button>
               </Space>
@@ -218,5 +241,18 @@ export class Publish extends React.Component {
         </Modal>
       </div>
     );
+  }
+  async componentDidMount() {
+    if (this.id) {
+      var currentArt = await getArt(this.id);
+      console.log(currentArt);
+      
+      var formData = { ...currentArt.data, type: currentArt.data.cover.type };
+      var fileList = currentArt.data.cover.images.map((val) => {
+        return { url: val };
+      });
+      this.setState({ fileList: fileList });
+      this.pubForm.current.setFieldsValue(formData);
+    }
   }
 }

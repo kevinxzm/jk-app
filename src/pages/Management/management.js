@@ -7,7 +7,6 @@ import {
   Button,
   Select,
   DatePicker,
-  Space,
   Table,
   Tag,
   Modal,
@@ -84,7 +83,19 @@ export class Management extends React.Component {
       render: (id) => {
         return (
           <div className="setting">
-            <Button type="primary" shape="circle" icon={<EditOutlined />} />
+            <Button
+              type="primary"
+              shape="circle"
+              icon={<EditOutlined />}
+              onClick={() => {
+                // var { results } = this.articleList.data;
+                // var obj = results.find((val) => (val.id = id));
+                // this.props.history.push(`/home/publish/${JSON.stringify(obj)}`);
+
+                this.props.history.push(`/home/publish/${id}`);
+
+              }}
+            />
             <Button
               type="primary"
               shape="circle"
@@ -257,6 +268,9 @@ export class Management extends React.Component {
       per_page: page.per_page,
     };
     const x = await getArtList(params);
+    this.articleList = x;
+  
+    
 
     // 渲染pagination分页
     this.page.total = x.data.total_count;
@@ -282,6 +296,3 @@ export class Management extends React.Component {
     });
   };
 }
-
-
-
