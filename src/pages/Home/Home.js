@@ -39,19 +39,28 @@ const items2 = [
 ];
 
 export default class Home extends React.Component {
-  state = {
-    data: {
-      a: "/home",
-      b: "/home/management",
-      c: "/home/publish",
-    },
-    userName: "user",
-  };
+  constructor(x) {
+    super(x);
+    this.state = {
+      data: {
+        a: "/home",
+        b: "/home/management",
+        c: "/home/publish",
+      },
+    };
+    this.userName = "user";
+  }
+
   getCurrentItem = () => {
-    const index = Object.values(this.state.data).findIndex(
-      (value) => value == window.location.pathname
-    );
-    return Object.keys(this.state.data)[index];
+    let pathname = window.location.pathname;
+    if (pathname.startsWith("/home/publish")) {
+      return "c";
+    } else {
+      const index = Object.values(this.state.data).findIndex(
+        (value) => value == window.location.pathname
+      );
+      return Object.keys(this.state.data)[index];
+    }
   };
 
   render() {
@@ -81,16 +90,20 @@ export default class Home extends React.Component {
           {/* 2.layout */}
           <Layout>
             {/* 2.1 layout-sider */}
-            <Sider width={200} height={'100vh'} className="site-layout-background">
+            <Sider
+              width={200}
+              height={"100vh"}
+              className="site-layout-background"
+            >
               <Menu
                 theme="dark"
                 mode="inline"
-                defaultSelectedKeys={this.getCurrentItem()}
+                selectedKeys={this.getCurrentItem()}
+                // defaultSelectedKeys={this.state.button}
                 defaultOpenKeys={["sub1"]}
                 style={{
                   height: "100%",
                   borderRight: 0,
-
                 }}
                 items={items2}
                 onClick={(x) => {
@@ -106,8 +119,8 @@ export default class Home extends React.Component {
             <Layout
               style={{
                 padding: "0px",
-                height:'100%',
-                overflow:'auto',
+                height: "100%",
+                overflow: "auto",
               }}
             >
               <Content
@@ -120,7 +133,17 @@ export default class Home extends React.Component {
                 <Switch>
                   <Route exact path="/home" component={DataOverview}></Route>
                   <Route path="/home/management" component={Management}></Route>
-                  <Route path="/home/publish" component={Publish}></Route>
+                  <Route
+                    key={"1"}
+                    path="/home/publish/:id"
+                    component={Publish}
+                  ></Route>
+                  <Route
+                    key={"2"}
+                    path="/home/publish"
+                    component={Publish}
+                    uname="kevin"
+                  ></Route>
                 </Switch>
               </Content>
             </Layout>
@@ -137,3 +160,4 @@ export default class Home extends React.Component {
     });
   }
 }
+  
