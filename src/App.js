@@ -1,5 +1,5 @@
-import Home from "pages/Home/Home";
-import Login from "pages/Login/Login";
+// import Home from "pages/Home/Home";
+// import Login from "pages/Login/Login";
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -9,18 +9,20 @@ import {
 } from "react-router-dom";
 
 import AuthRoute from "components/AuthRoute/AuthRoute";
-
+const Home = React.lazy(() => import("pages/Home/Home"));
+const Login = React.lazy(() => import("pages/Login/Login"));
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <Switch>
-          <Redirect exact from="/" to="/login"></Redirect>
-          <Route path="/login" component={Login}></Route>
-          <AuthRoute path="/home" component={Home}></AuthRoute>
+        <React.Suspense fallback={<>loading</>}>
+          <Switch>
+            <Redirect exact from="/" to="/login"></Redirect>
+            <Route path="/login" component={Login}></Route>
+            <AuthRoute path="/home" component={Home}></AuthRoute>
 
-          {/* <Route
+            {/* <Route
             path="/home"
             render={(x) => {
               return (
@@ -32,7 +34,8 @@ function App() {
               );
             }}
           ></Route>  */}
-        </Switch>
+          </Switch>
+        </React.Suspense>
       </div>
     </Router>
   );
